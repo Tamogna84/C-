@@ -1,0 +1,101 @@
+// Задание 3 cipher - Шифр Цезаря
+            while (true)
+            {
+                Console.WriteLine("Выберите действие: ");
+                Console.WriteLine("1. Зашифровать текст.");
+                Console.WriteLine("2. Расшифровать текст.");
+                int menu = Convert.ToInt32(Console.ReadLine());
+                switch (menu)
+                {
+                    case 1:
+                        Console.Write("Введите текст: ");
+                        string text = Console.ReadLine();
+                        StringBuilder sb = new StringBuilder();
+                        foreach (char c in text)
+                        {
+                            //Console.WriteLine((int)c);// проверка значения char
+                            int i = (int)c + 3;
+                            if (i > 90 && i < 97)
+                            {
+                                i -= 26;
+                            }
+                            if (i > 122)
+                            {
+                                i -= 26;
+                            }
+                            if (i == 35)//
+                            {
+                                i = 32;// 32 - пробел
+                            }
+                            char b = (char)i;
+                            sb.Append(b);
+                        }
+                        string cipher = sb.ToString();
+                        Console.WriteLine($"\nВаш шифр: {cipher}\n");
+                        break;
+                    case 2:
+                        Console.Write("Введите шифр: ");
+                        string cipher1 = Console.ReadLine();
+                        StringBuilder sb1 = new StringBuilder();
+                        foreach (char c in cipher1)
+                        {
+                            //Console.WriteLine((int)c);// проверка значения char
+                            int i = (int)c - 3;
+                            if (i > 90 && i < 97)
+                            {
+                                i += 26;
+                            }
+                            if (i < 65)
+                            {
+                                i += 26;
+                            }
+                            if (i == 55)//
+                            {
+                                i = 32;// 32 - пробел
+                            }
+                            char b = (char)i;
+                            sb1.Append(b);
+                        }
+                        string text1 = sb1.ToString();
+                        Console.WriteLine($"\nБыло зашифровано: {text1}\n");
+                        break;
+
+                }
+            }
+
+            //////// Шифр Цезаря с русским алфавитом
+
+
+            string m = Console.ReadLine();
+            int nomer; // Номер в алфавите
+            int d; // Смещение
+            string s; //Результат
+            int j; // Переменная для циклов
+            char[] massage = m.ToCharArray(); // Превращаем строку в массив символов.
+            char[] alfavit = { 'а', 'б', 'в', 'г', 'д', 'е', 'ё', 'ж', 'з', 'и', 'й', 'к', 'л', 'м', 'н', 'о', 'п', 'р', 'с', 'т', 'у', 'ф', 'х', 'ц', 'ч', 'ш', 'щ', 'ъ', 'ы', 'ь', 'э', 'ю', 'я' };
+
+            // Перебираем каждый символ сообщения
+            for (int i = 0; i < massage.Length; i++)
+            {
+                // Ищем индекс буквы
+                for (j = 0; j < alfavit.Length; j++)
+                {
+                    if (massage[i] == alfavit[j])
+                    {
+                        break;
+                    }
+                }
+                if (j != 33) // Если j равно 33, значит символ не из алфавита
+                {
+                    nomer = j; // Индекс буквы
+                    d = nomer + 3; // Делаем смещение
+                    // Проверяем, чтобы не вышли за пределы алфавита
+                    if (d > 32)
+                    {
+                        d = d - 33;
+                    }
+                    massage[i] = alfavit[d]; // Меняем букву
+                }
+            }
+            s = new string(massage); // Собираем символы обратно в строку.
+            Console.WriteLine(s);
